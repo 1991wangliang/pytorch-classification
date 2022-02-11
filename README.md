@@ -31,10 +31,12 @@ By using the new MobileNet v3 model instead of the old Resnet18 model, and by ca
 
 More details about TorchScript you can find in [tutorials on pytorch.org](https://pytorch.org/docs/stable/jit.html)
 
+how to trace model to see python module code .
+
 #### 2. Cloning from github
 ```
-git clone https://github.com/pytorch/android-demo-app.git
-cd HelloWorldApp
+git clone https://github.com/1991wangliang/pytorch-classification.git
+cd android
 ```
 If [Android SDK](https://developer.android.com/studio/index.html#command-tools) and [Android NDK](https://developer.android.com/ndk/downloads) are already installed you can install this application to the connected android device or emulator with:
 ```
@@ -73,7 +75,7 @@ Bitmap bitmap = BitmapFactory.decodeStream(getAssets().open("image.jpg"));
 
 #### 5. Loading TorchScript Module
 ```
-Module module = LiteModuleLoader.load(assetFilePath(this, "model.pt"));
+Module module = LiteModuleLoader.load(assetFilePath(this, "model.ptl"));
 ```
 `org.pytorch.Module` represents `torch::jit::script::Module` that can be loaded with `load` method specifying file path to the serialized to file model.
 
@@ -118,3 +120,5 @@ String className = ImageNetClasses.IMAGENET_CLASSES[maxScoreIdx];
 
 In the following sections you can find detailed explanations of PyTorch Android API, code walk through for a bigger [demo application](https://github.com/pytorch/android-demo-app/tree/master/PyTorchDemoApp),
 implementation details of the API, how to customize and build it from source.
+
+![img.png](img.png)
