@@ -1,6 +1,6 @@
 ## Quickstart
 
-[HelloWorld](https://github.com/pytorch/android-demo-app/tree/master/HelloWorldApp) is a simple image classification application that demonstrates how to use PyTorch Android API.
+[HelloWorld](https://github.com/1991wangliang/pytorch-classification/tree/main/android) is a simple image classification application that demonstrates how to use PyTorch Android API.
 This application runs TorchScript serialized TorchVision pretrained [MobileNet v3 model](https://pytorch.org/vision/stable/models.html) on static image which is packaged inside the app as android asset.
 
 #### 1. Model Preparation
@@ -11,7 +11,7 @@ To install it, run the command below:
 pip install torch torchvision
 ```
 
-To serialize and optimize the model for Android, you can use the Python [script](https://github.com/pytorch/android-demo-app/blob/master/HelloWorldApp/trace_model.py) in the root folder of HelloWorld app:
+To serialize and optimize the model for Android, you can use the Python [script](https://github.com/1991wangliang/pytorch-classification/blob/main/android/trace_model.py) in the root folder of android app:
 ```
 import torch
 import torchvision
@@ -24,7 +24,7 @@ traced_script_module = torch.jit.trace(model, example)
 optimized_traced_model = optimize_for_mobile(traced_script_module)
 optimized_traced_model._save_for_lite_interpreter("app/src/main/assets/model.ptl")
 ```
-If everything works well, we should have our scripted and optimized model - `model.pt` generated in the assets folder of android application.
+If everything works well, we should have our scripted and optimized model - `model.ptl` generated in the assets folder of android application.
 That will be packaged inside android application as `asset` and can be used on the device.
 
 By using the new MobileNet v3 model instead of the old Resnet18 model, and by calling the `optimize_for_mobile` method on the traced model, the model inference time on a Pixel 3 gets decreased from over 230ms to about 40ms.
@@ -122,3 +122,8 @@ In the following sections you can find detailed explanations of PyTorch Android 
 implementation details of the API, how to customize and build it from source.
 
 ![img.png](img.png)
+
+
+#### 9. References 
+[pytorch-android-demo](https://github.com/pytorch/android-demo-app/tree/master/HelloWorldApp)  
+[pytorch transfer learning for computer vision tutorial](https://pytorch.org/tutorials/beginner/transfer_learning_tutorial.html)
