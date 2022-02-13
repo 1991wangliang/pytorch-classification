@@ -56,7 +56,7 @@ dataset_sizes = {x: len(image_datasets[x]) for x in ['train', 'val']}
 
 class_names = image_datasets['train'].classes
 
-device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 
 def imshow(inp, title=None):
@@ -195,15 +195,20 @@ optimizer_ft = optim.SGD(model_ft.parameters(), lr=0.001, momentum=0.9)
 # Decay LR by a factor of 0.1 every 7 epochs
 exp_lr_scheduler = lr_scheduler.StepLR(optimizer_ft, step_size=7, gamma=0.1)
 
+# train model epochs 10
 model_ft = train_model(model_ft, criterion, optimizer_ft, exp_lr_scheduler,num_epochs=10)
 
+# visualize model
 visualize_model(model_ft)
 
 plt.ioff()
 plt.show()
 
+# export model
 model_ft.eval()
-example = torch.rand(1, 3, 224, 224)
+# tenser to device type
+example = torch.rand(1, 3, 224, 224).to(device)
+
 traced_script_module = torch.jit.trace(model_ft, example)
 
 from torch.utils.mobile_optimizer import optimize_for_mobile
