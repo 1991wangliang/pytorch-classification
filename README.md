@@ -15,14 +15,21 @@ To serialize and optimize the model for Android, you can use the Python [script]
 ```
 import torch
 import torchvision
-from torch.utils.mobile_optimizer import optimize_for_mobile
+
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 model = torchvision.models.mobilenet_v3_small(pretrained=True)
+model.to(device)
+
 model.eval()
-example = torch.rand(1, 3, 224, 224)
+
+example = torch.rand(1, 3, 224, 224).to(device)
 traced_script_module = torch.jit.trace(model, example)
+
+from torch.utils.mobile_optimizer import optimize_for_mobile
 optimized_traced_model = optimize_for_mobile(traced_script_module)
-optimized_traced_model._save_for_lite_interpreter("app/src/main/assets/model.ptl")
+
+optimized_traced_model._save_for_lite_interpreter("test.ptl")
 ```
 If everything works well, we should have our scripted and optimized model - `model.ptl` generated in the assets folder of android application.
 That will be packaged inside android application as `asset` and can be used on the device.

@@ -6,9 +6,10 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 print(device)
 
 model = torchvision.models.mobilenet_v3_small(pretrained=True)
+model.to(device)
 model.eval()
 
-example = torch.rand(1, 3, 224, 224)
+example = torch.rand(1, 3, 224, 224).to(device)
 traced_script_module = torch.jit.trace(model, example)
 
 from torch.utils.mobile_optimizer import optimize_for_mobile
