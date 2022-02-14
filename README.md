@@ -133,7 +133,6 @@ implementation details of the API, how to customize and build it from source.
 
 ![img.png](img.png)
 
-
 #### 9. References 
 [pytorch-android-demo](https://github.com/pytorch/android-demo-app/tree/master/HelloWorldApp)  
 [pytorch transfer learning for computer vision tutorial](https://pytorch.org/tutorials/beginner/transfer_learning_tutorial.html)

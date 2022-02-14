@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
 
     // showing className on UI
     TextView textView = findViewById(R.id.text);
-    textView.setText("time:"+(t2-t1)+",label:"+className);
+    textView.setText("time:"+(t2-t1)+",label:"+className+",maxScore:"+maxScore);
 
   }
 

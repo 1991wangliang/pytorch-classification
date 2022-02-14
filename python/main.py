@@ -1,12 +1,18 @@
 # This is a sample Python script.
 import torch
 import torchvision
+import torch.nn as nn
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 print(device)
 
 model = torchvision.models.mobilenet_v3_small(pretrained=True)
 model.to(device)
+classifier = model.classifier
+
+# add softmax output
+classifier.add_module("output", nn.Softmax(dim=1))
+
 print(model)
 
 model.eval()

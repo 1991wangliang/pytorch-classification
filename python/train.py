@@ -179,10 +179,14 @@ def visualize_model(model, num_images=6):
 
 model_ft = models.mobilenet_v3_small(pretrained=True)
 
+classifier = model_ft.classifier
 # Here the size of each output sample is set to 2.
 # Alternatively, it can be generalized to nn.Linear(num_ftrs, len(class_names)).
-num_ftrs = model_ft.classifier[3].in_features
+num_ftrs = classifier[3].in_features
 model_ft.classifier[3] = nn.Linear(num_ftrs, 2)
+
+# add softmax output
+classifier.add_module("output", nn.Softmax(dim=1))
 
 print(model_ft)
 
