@@ -7,6 +7,8 @@ print(device)
 
 model = torchvision.models.mobilenet_v3_small(pretrained=True)
 model.to(device)
+print(model)
+
 model.eval()
 
 example = torch.rand(1, 3, 224, 224).to(device)

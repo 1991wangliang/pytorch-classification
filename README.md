@@ -11,15 +11,17 @@ To install it, run the command below:
 pip install torch torchvision
 ```
 
-To serialize and optimize the model for Android, you can use the Python [script](https://github.com/1991wangliang/pytorch-classification/blob/main/android/trace_model.py) in the root folder of android app:
+To serialize and optimize the model for Android, you can use the Python [script](https://github.com/1991wangliang/pytorch-classification/blob/main/python/main.py) in the root folder of android app:
 ```
 import torch
 import torchvision
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+print(device)
 
 model = torchvision.models.mobilenet_v3_small(pretrained=True)
 model.to(device)
+print(model)
 
 model.eval()
 
@@ -30,6 +32,7 @@ from torch.utils.mobile_optimizer import optimize_for_mobile
 optimized_traced_model = optimize_for_mobile(traced_script_module)
 
 optimized_traced_model._save_for_lite_interpreter("test.ptl")
+
 ```
 If everything works well, we should have our scripted and optimized model - `model.ptl` generated in the assets folder of android application.
 That will be packaged inside android application as `asset` and can be used on the device.
